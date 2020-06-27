@@ -25,7 +25,7 @@ class SimpleLoop(BasePuzzleGenre):
             raise RuntimeError('too few lines in payload for height {}'
                 .format(puzzle.height))
 
-        givens = [r.split(' ') for r in pd.payload[:puzzle.height]]
+        givens = [r.strip().split(' ') for r in pd.payload[:puzzle.height]]
 
         for p in puzzle.lattice.points:
             given = givens[p.y][p.x]
