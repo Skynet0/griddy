@@ -2,3 +2,4 @@
 .vscode/*
 .env
 debug.log
+*.pyc

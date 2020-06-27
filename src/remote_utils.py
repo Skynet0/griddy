@@ -4,7 +4,7 @@ from selenium import webdriver
 from PIL import Image
 from time import sleep
 
-from puzzle_data import PuzzleData
+from puzzles.puzzle_base import PuzzleData
 
 chrome_options = webdriver.ChromeOptions()
 # Don't start browser
