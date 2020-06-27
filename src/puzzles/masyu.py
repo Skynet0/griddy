@@ -34,12 +34,15 @@ class Masyu(BasePuzzleGenre):
 
         givens = [r.strip().split(' ') for r in pd.payload[:puzzle.height]]
 
+        # CODE BELOW IS FROM
+        # https://github.com/obijywk/grilops/blob/master/examples/masyu.py
+
         p = min(p for p in puzzle.sg.lattice.points
             if givens[p.y][p.x] != MASYU_EMPTY)
         sg.solver.add(puzzle.lc.loop_order_grid[p] == 0)
 
         for p in puzzle.lattice.points:
-            given = givens[p.y][p.y]
+            given = givens[p.y][p.x]
             if given == MASYU_BLACK_CIRCLE:
                 # The loop must turn at a black circle.
                 sg.solver.add(sg.cell_is_one_of(p, turns))
