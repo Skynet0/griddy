@@ -1,4 +1,3 @@
 discord.py
 grilops
-selenium
 z3-solver

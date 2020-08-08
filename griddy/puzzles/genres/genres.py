@@ -1,5 +1,5 @@
-import puzzles.simpleloop
-import puzzles.masyu
+import simpleloop
+import masyu
 
 puzzle_genres = {
     'simpleloop': puzzles.simpleloop.SimpleLoop,
