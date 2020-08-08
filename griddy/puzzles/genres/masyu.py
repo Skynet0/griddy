@@ -30,7 +30,7 @@ def _parse_url(url: str) -> PuzzleGivens:
         for t in [3**p for p in range(2, -1, -1)]:
             v = int(n / t) % 3
             if v > 0:
-                y = cell_num / width
+                y = int(cell_num / width)
                 x = cell_num % width
                 circles[Point(y, x)] = v
             cell_num += 1
@@ -60,11 +60,11 @@ def load_puzzle(url: str, ura_mashu=False) -> SymbolGrid:
 
     # If we have givens, then restrict a pearl to reduce possibilities
     if not len(givens) == 0:
-        sg.solver.add(lc.loop_order_grid[givens.keys()[0]] == 0)
+        sg.solver.add(lc.loop_order_grid[next(iter(givens.keys()))] == 0)
 
     for p in sg.lattice.points:
         if givens[p]:
-            if givens[p] == MASYU_BLACK_PEARL == (not ura_mashu):
+            if (givens[p] == MASYU_BLACK_PEARL) == (not ura_mashu):
                 # The loop must turn at a black circle.
                 sg.solver.add(sg.cell_is_one_of(p, turns))
 
@@ -91,7 +91,7 @@ def load_puzzle(url: str, ura_mashu=False) -> SymbolGrid:
                 sg.solver.add(sg.cell_is_one_of(p, straights))
 
                 # At least one connected adjacent cell must turn.
-                if 0 < p.y < len(givens) - 1:
+                if 0 < p.y < height - 1:
                     sg.solver.add(
                         Implies(
                             sg.cell_is(p, sym.NS),
@@ -100,7 +100,7 @@ def load_puzzle(url: str, ura_mashu=False) -> SymbolGrid:
                                                   turns),
                                 sg.cell_is_one_of(p.translate(Vector(1, 0)),
                                                   turns))))
-                if 0 < p.x < len(givens[0]) - 1:
+                if 0 < p.x < width - 1:
                     sg.solver.add(
                         Implies(
                             sg.cell_is(p, sym.EW),
@@ -109,3 +109,4 @@ def load_puzzle(url: str, ura_mashu=False) -> SymbolGrid:
                                                   turns),
                                 sg.cell_is_one_of(p.translate(Vector(0, 1)),
                                                   turns))))
+    return sg
