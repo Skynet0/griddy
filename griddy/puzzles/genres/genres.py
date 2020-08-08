@@ -1,8 +1,9 @@
-import simpleloop
-import masyu
+from griddy.puzzles.genres import masyu, simpleloop
 
-puzzle_genres = {
-    'simpleloop': puzzles.simpleloop.SimpleLoop,
-    'mashu': puzzles.masyu.Masyu,
-    'masyu': puzzles.masyu.Masyu
-}
+_puzzle_genre_modules = [masyu, simpleloop]
+
+puzzle_genres = {}
+
+for genre in _puzzle_genre_modules:
+    for alias in genre.GENRE_ALIASES:
+        puzzle_genres[alias] = genre
