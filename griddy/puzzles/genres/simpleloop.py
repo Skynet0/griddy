@@ -8,7 +8,7 @@ from griddy.puzzles.common.puzzle_base import PuzzleGivens
 GENRE_ALIASES = ['simpleloop']
 
 
-def _parse_url(url: str) -> PuzzleGivens:
+def parse_url(url: str) -> PuzzleGivens:
     params = url.split('/')
     width = int(params[-3])
     payload = params[-1]
@@ -37,7 +37,7 @@ def load_puzzle(url: str) -> SymbolGrid:
     height = int(params[-2])
     width = int(params[-3])
 
-    givens: PuzzleGivens = _parse_url(url)
+    givens: PuzzleGivens = parse_url(url)
 
     lattice = get_rectangle_lattice(height, width)
     sym = LoopSymbolSet(lattice)

@@ -11,7 +11,7 @@ MASYU_WHITE_PEARL = 1
 MASYU_BLACK_PEARL = 2
 
 
-def _parse_url(url: str) -> PuzzleGivens:
+def parse_url(url: str) -> PuzzleGivens:
     params = url.split('/')
     height = int(params[-2])
     width = int(params[-3])
@@ -43,7 +43,7 @@ def load_puzzle(url: str, ura_mashu=False) -> SymbolGrid:
     height = int(params[-2])
     width = int(params[-3])
 
-    givens: PuzzleGivens = _parse_url(url)
+    givens: PuzzleGivens = parse_url(url)
 
     lattice = get_rectangle_lattice(height, width)
     sym = LoopSymbolSet(lattice)
