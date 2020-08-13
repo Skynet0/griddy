@@ -2,7 +2,9 @@ from collections import defaultdict
 from grilops import SymbolGrid, get_rectangle_lattice
 from grilops.geometry import Point, Vector
 from grilops.loops import LoopConstrainer, LoopSymbolSet
+from typing import Callable, Optional, Tuple
 from z3 import Implies, Or, SolverFor
+
 from griddy.puzzles.common.puzzle_base import PuzzleGivens
 
 GENRE_ALIASES = ['masyu', 'mashu']
@@ -38,7 +40,10 @@ def parse_url(url: str) -> PuzzleGivens:
     return circles
 
 
-def load_puzzle(url: str, ura_mashu=False) -> SymbolGrid:
+def load_puzzle(
+    url: str,
+    ura_mashu=False
+) -> Tuple[SymbolGrid, Optional[Callable[[Point, int], str]]]:
     params = url.split('/')
     height = int(params[-2])
     width = int(params[-3])
@@ -109,4 +114,12 @@ def load_puzzle(url: str, ura_mashu=False) -> SymbolGrid:
                                                   turns),
                                 sg.cell_is_one_of(p.translate(Vector(0, 1)),
                                                   turns))))
-    return sg
+
+    def print_fn(p: Point, i: int) -> str:
+        if givens[p] == MASYU_WHITE_PEARL:
+            return chr(0x25cb)
+        if givens[p] == MASYU_BLACK_PEARL:
+            return chr(0x25cf)
+        return None
+
+    return sg, print_fn

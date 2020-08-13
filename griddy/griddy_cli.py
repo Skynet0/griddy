@@ -1,7 +1,10 @@
 import argparse
 import sys
 import time
+from typing import Callable, Optional
+
 from griddy.puzzles.genres import genres
+from grilops.geometry import Point
 from grilops.grids import SymbolGrid
 
 parser = argparse.ArgumentParser(
@@ -27,7 +30,9 @@ def main():
     if g not in genres.puzzle_genres:
         sys.exit(1)
 
-    sg: SymbolGrid = genres.puzzle_genres[g].load_puzzle(args.url)
+    sg: SymbolGrid
+    print_fn: Optional[Callable[[Point, int], str]]
+    sg, print_fn = genres.puzzle_genres[g].load_puzzle(args.url)
     sg.solver.set(timeout=args.timeout)
 
     start_time = time.process_time()
@@ -35,7 +40,7 @@ def main():
     tot_time = time.process_time() - start_time
 
     if solved:
-        sg.print()
+        sg.print(hook_function=print_fn)
         if args.check_unique:
             if sg.is_unique():
                 print("Unique solution")

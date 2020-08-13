@@ -2,7 +2,9 @@ from collections import defaultdict
 from grilops import SymbolGrid, get_rectangle_lattice
 from grilops.geometry import Point
 from grilops.loops import LoopConstrainer, LoopSymbolSet
+from typing import Callable, Optional, Tuple
 from z3 import Not, SolverFor
+
 from griddy.puzzles.common.puzzle_base import PuzzleGivens
 
 GENRE_ALIASES = ['simpleloop']
@@ -32,7 +34,8 @@ def parse_url(url: str) -> PuzzleGivens:
     return shaded
 
 
-def load_puzzle(url: str) -> SymbolGrid:
+def load_puzzle(
+        url: str) -> Tuple[SymbolGrid, Optional[Callable[[Point, int], str]]]:
     params = url.split('/')
     height = int(params[-2])
     width = int(params[-3])
@@ -58,4 +61,4 @@ def load_puzzle(url: str) -> SymbolGrid:
                 sg.solver.add(lc.loop_order_grid[p] == 0)
                 set_loop_order_zero = True
 
-    return sg
+    return sg, None
