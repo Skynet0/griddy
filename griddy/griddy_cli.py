@@ -1,5 +1,6 @@
 import argparse
 import sys
+import time
 from griddy.puzzles.genres import genres
 from grilops.grids import SymbolGrid
 
@@ -29,7 +30,11 @@ def main():
     sg: SymbolGrid = genres.puzzle_genres[g].load_puzzle(args.url)
     sg.solver.set(timeout=args.timeout)
 
-    if sg.solve():
+    start_time = time.process_time()
+    solved = sg.solve()
+    tot_time = time.process_time() - start_time
+
+    if solved:
         sg.print()
         if args.check_unique:
             if sg.is_unique():
@@ -38,6 +43,8 @@ def main():
                 print("Alternate solution")
     else:
         print("No solution")
+
+    print("Total time: {}".format(tot_time))
 
 
 if __name__ == "__main__":
