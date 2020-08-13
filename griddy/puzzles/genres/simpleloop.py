@@ -41,7 +41,7 @@ def load_puzzle(url: str) -> SymbolGrid:
 
     lattice = get_rectangle_lattice(height, width)
     sym = LoopSymbolSet(lattice)
-    sym.append('EMPTY', ' ')
+    sym.append('EMPTY', chr(0x25AE))
     qf_idl_solver = SolverFor('QF_IDL')
     sg = SymbolGrid(lattice, sym, solver=qf_idl_solver)
     lc = LoopConstrainer(sg, single_loop=True)

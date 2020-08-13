@@ -1,0 +1,7 @@
+discord.py
+grilops
+z3-solver
+flake8
+mypy
+bandit
+yapf
