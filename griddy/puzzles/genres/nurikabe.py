@@ -87,6 +87,9 @@ def load_puzzle(
                            min_region_size=min_region_size,
                            max_region_size=max_region_size)
 
+    # CODE BELOW IS LARGELY DERIVED FROM
+    # https://github.com/obijywk/grilops/blob/master/examples/nurikabe.py
+
     # Make trivial deductions about shaded cells
     known_shaded = set()
     for p in givens:
