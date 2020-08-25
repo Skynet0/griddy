@@ -3,7 +3,7 @@ from grilops import SymbolGrid, get_rectangle_lattice
 from grilops.geometry import Point, Vector
 from grilops.loops import LoopConstrainer, LoopSymbolSet
 from typing import Callable, Optional, Tuple
-from z3 import Implies, Or, SolverFor
+from z3 import Implies, Or
 
 from griddy.puzzles.common.puzzle_base import PuzzleGivens
 
@@ -53,8 +53,7 @@ def load_puzzle(
     lattice = get_rectangle_lattice(height, width)
     sym = LoopSymbolSet(lattice)
     sym.append('EMPTY', ' ')
-    qf_idl_solver = SolverFor('QF_IDL')
-    sg = SymbolGrid(lattice, sym, solver=qf_idl_solver)
+    sg = SymbolGrid(lattice, sym)
     lc = LoopConstrainer(sg, single_loop=True)
 
     straights = [sym.NS, sym.EW]

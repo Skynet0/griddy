@@ -1,6 +1,6 @@
-from griddy.puzzles.genres import masyu, simpleloop
+from griddy.puzzles.genres import masyu, simpleloop, nurikabe
 
-_puzzle_genre_modules = [masyu, simpleloop]
+_puzzle_genre_modules = [masyu, simpleloop, nurikabe]
 
 puzzle_genres = {}
 
