@@ -15,7 +15,7 @@ parser.add_argument('-t',
                     dest='timeout',
                     type=int,
                     action='store',
-                    default=30 * 1000)
+                    default=60 * 1000)
 parser.add_argument('--check_unique',
                     dest='check_unique',
                     action='store_const',
